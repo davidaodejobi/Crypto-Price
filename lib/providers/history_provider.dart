@@ -6,7 +6,7 @@ import 'package:crypto_app/models/history.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
-class HistoryServices with ChangeNotifier {
+class HistoryProvider with ChangeNotifier {
   // ignore: prefer_final_fields
   List<History> _history = [];
 
@@ -31,11 +31,11 @@ class HistoryServices with ChangeNotifier {
         _history = listOfHistory;
 
         notifyListeners();
-        // return listOfHistory;
       } else {
         throw Exception('Failed to load history data');
       }
     } catch (e) {
+      // ignore: avoid_print
       print('Error: $e');
     }
   }

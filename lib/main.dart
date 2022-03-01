@@ -17,7 +17,7 @@ class CryptoPriceApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => TabManager()),
         ChangeNotifierProvider(create: (_) => ThemeModel()),
-        ChangeNotifierProvider(create: (_) => HistoryServices()),
+        ChangeNotifierProvider(create: (_) => HistoryProvider()),
       ],
       child: Consumer<ThemeModel>(
         builder: (context, themeModel, child) => MaterialApp(

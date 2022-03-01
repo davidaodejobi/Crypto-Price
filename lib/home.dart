@@ -1,17 +1,17 @@
-import 'package:crypto_app/screens/history_screen.dart';
-import 'package:crypto_app/utils/constants.dart';
-import 'package:crypto_app/widgets.dart/badge.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '/utils/utils.dart';
+import '/screens/history_screen.dart';
 import 'providers/providers.dart';
+import '/widgets.dart/widgets.dart';
 
 // ignore: must_be_immutable
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   List<Widget> pages = [
-    const HistoryScreen(),
+    HistoryScreen(),
     Container(),
     Container(),
     Container(),
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tabManager = Provider.of<TabManager>(context);
-    final histories = Provider.of<HistoryServices>(context);
+    final histories = Provider.of<HistoryProvider>(context);
     return Scaffold(
       backgroundColor: kScafoldBackgroundColor,
       appBar: AppBar(

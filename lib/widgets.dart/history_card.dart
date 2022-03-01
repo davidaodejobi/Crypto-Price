@@ -1,22 +1,35 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:crypto_app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class HistoryCard extends StatelessWidget {
   final String? status;
-  final String? cryptoAmount;
-  final String? dollarAmount;
-  final String? date;
+  final num? marketCap;
+  final num? dollarAmount;
+  final DateTime? date;
   final String? imageUrl;
+  final String? name;
 
-  const HistoryCard({
-    this.cryptoAmount,
+  HistoryCard({
+    this.marketCap,
     this.dollarAmount,
     this.date,
     this.status,
     this.imageUrl,
+    this.name,
     Key? key,
   }) : super(key: key);
+
+  //check the status of the coin and return the color
+  Map<String, Color> stat = {
+    'Received': Colors.green,
+    'Sent': Colors.red,
+  };
+
+  Color? getColor(String status) {
+    return stat[status];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,24 +71,36 @@ class HistoryCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  cryptoAmount!,
-                  style: Theme.of(context).textTheme.headline2,
+                Row(
+                  children: [
+                    Text(
+                      marketCap.toString(),
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                    const SizedBox(width: 5),
+                    Expanded(
+                      child: Text(
+                        name!,
+                        style: Theme.of(context).textTheme.headline2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  date!,
+                  DateFormat.yMMMMd().format(date!),
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ],
             ),
           ),
           Text(
-            dollarAmount!,
+            '\$${dollarAmount!.toStringAsFixed(2)}',
             style: Theme.of(context)
                 .textTheme
                 .headline2
-                ?.copyWith(color: randomGenerator()),
+                ?.copyWith(color: getColor(status!)),
           ),
         ],
       ),
